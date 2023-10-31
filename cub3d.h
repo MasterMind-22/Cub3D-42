@@ -17,18 +17,19 @@
 
 typedef struct cub3d_t
 {
-    int     fd;
+    char    **map;
+    int     flag;
+    char     *file_name;
     char    *north_texture;
     char    *south_texture;
     char    *west_texture;
     char    *east_texture;
     int     ceiling_color;
     int     floor_color;
+} cub3d_s;
 
-}cub3d_s;
-
-
-int	ft_atoi(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int     ft_atoi(const char *str);
 char	*get_next_line(int fd);
 int		newline_found(char *read_line);
 char	*ft_strdup(char *s1);
@@ -42,7 +43,7 @@ void    p_error(char *error);
 char    **ft_split(char *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 int     ft_strcmp(const char *s1, const char *s2);
-int     check_extension(char *av);
+char    *check_extension(char *av);
 void    read_map_elements(cub3d_s *cub3d);
 void    init_struct(cub3d_s *cub3d);
 

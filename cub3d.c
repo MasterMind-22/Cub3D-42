@@ -7,7 +7,7 @@ int main(int ac, char **av)
     {
         cub3d = malloc(sizeof(cub3d_s));
         // init_struct(cub3d);
-        cub3d->fd = check_extension(av[1]);
+        cub3d->file_name = check_extension(av[1]);
         read_map_elements(cub3d);
     }
     else
