@@ -110,8 +110,8 @@ int get_map_layout(cub3d_s *cub3d, char **read)
             if ((count_char(read[i], '1') || count_char(read[i], '0'))
                 && (count_char(split[0], '1') || count_char(split[0], '0')))
                 {
-                get_map(cub3d, &read[i]);
-                return 0;
+                    get_map(cub3d, &read[i]);
+                    return 0;
                 }
         // }
             else

@@ -1,6 +1,8 @@
 NAME = cub3D
 LIB = cub3d.h
 Minilibx = libmlx.a
+Framework_linux = -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+Framework_macos = -lmlx -framework OpenGL -framework AppKit
 
 SRCS =	parsing.c \
 		./libft_utils/libft_utils.c \
@@ -17,8 +19,7 @@ CC = cc
 all : ${NAME}
 
 $(NAME) : $(OBJS)
-		$(CC) ${Minilibx} ${OBJS} -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz  -o $(NAME)
-#		@ $(CC) $(LIB) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+		$(CC) ${Minilibx} $(OBJS) $(Framework_linux)  -o $(NAME)
 
 clean :
 	@ rm -f ${OBJS}
