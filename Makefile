@@ -19,7 +19,7 @@ CC = cc
 all : ${NAME}
 
 $(NAME) : $(OBJS)
-		$(CC) ${Minilibx} $(OBJS) $(Framework_linux)  -o $(NAME)
+		$(CC) $(OBJS) $(Framework_macos)  -o $(NAME)
 
 clean :
 	@ rm -f ${OBJS}

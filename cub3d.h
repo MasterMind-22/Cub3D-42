@@ -26,6 +26,7 @@ typedef struct cub3d_t
     char    *east_texture;
     int     ceiling_color;
     int     floor_color;
+    int     map_length;
 } cub3d_s;
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
