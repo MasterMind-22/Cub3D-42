@@ -60,7 +60,7 @@ static	int	count_str(char *str, char c)
 	return (counter);
 }
 
-static	void	free_strs(char **strs, int i)
+void	free_strs(char **strs, int i)
 {
 	while (strs[i])
 	{

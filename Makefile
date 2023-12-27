@@ -19,7 +19,7 @@ CC = cc
 all : ${NAME}
 
 $(NAME) : $(OBJS)
-		$(CC) $(OBJS) $(Framework_macos)  -o $(NAME)
+		$(CC) $(OBJS) $(Framework_linux)  -o $(NAME)
 
 clean :
 	@ rm -f ${OBJS}

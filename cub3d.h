@@ -29,6 +29,9 @@ typedef struct cub3d_t
     int     map_length;
 } cub3d_s;
 
+
+/******************** LIBFT/GNL FUNCS ********************/
+
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int     ft_atoi(const char *str);
 char	*get_next_line(int fd);
@@ -36,14 +39,20 @@ int		newline_found(char *read_line);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strstr(const char *str, const char *sub);
-int     ft_strcmp(const char *s1, const char *s2);  
 void    ft_putchar(char c);
 void    ft_putstr(char *str);
 size_t  ft_strlen(char *s);
 void    p_error(char *error);
 char    **ft_split(char *s, char c);
 void	*ft_calloc(size_t count, size_t size);
-int     ft_strcmp(const char *s1, const char *s2);
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
+int     ft_issame(char find, char *str);
+char	*ft_strtrim(char const *s1, char const *set);
+void	*ft_calloc(size_t count, size_t size);
+void	free_strs(char **strs, int i);
+
+/******************** Cub3D FUNCS ********************/
+
 char    *check_extension(char *av);
 void    read_map_elements(cub3d_s *cub3d);
 void    init_struct(cub3d_s *cub3d);
