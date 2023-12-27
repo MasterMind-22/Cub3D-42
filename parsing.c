@@ -106,9 +106,9 @@ void check_textures(cub3d_s *cub3d, char **split)
     if ((!ft_strncmp(split[0], "NO", 2) && cub3d->north_texture)
         || !ft_strncmp(split[0], "SO", 2) && cub3d->south_texture
         || !ft_strncmp(split[0], "WE", 2) && cub3d->west_texture
-        || !ft_strncmp(split[0], "EA", 2) && cub3d->east_texture)
-        // || !ft_strncmp(split[0], "F", 1) && cub3d->floor_color >= 0
-        // || !ft_strncmp(split[0], "C", 1) && cub3d->ceiling_color >= 0)
+        || !ft_strncmp(split[0], "EA", 2) && cub3d->east_texture
+        || !ft_strncmp(split[0], "F", 1) && cub3d->floor_color >= 0
+        || !ft_strncmp(split[0], "C", 1) && cub3d->ceiling_color >= 0)
         p_error("Duplicated Resources");
     else if (!ft_strncmp(split[0], "NO", 2))
         cub3d->north_texture = ft_strdup(split[1]);
