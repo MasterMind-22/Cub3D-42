@@ -24,11 +24,16 @@ int deci_to_hexa_color(int red, int green, int blue)
 char  *check_extension(char *av)
 {
     int fd;
-    if (ft_strncmp(".cub", av + ft_strlen(av) - 4, 4))
-        p_error("Invalid Extension");
-    else
-        return (av);
-    return (0);
+
+    fd = open(av, O_RDONLY);
+    if (ft_strncmp(".cub", av + (ft_strlen(av) - 4), 4)
+        || fd == -1)
+        {
+            close(fd);
+            p_error("Invalid Extension");
+        }
+    close(fd);
+    return (av);
 }
 
 int count_char(char *str, char c)
@@ -103,6 +108,8 @@ int check_colors(cub3d_s *cub3d, char **split)
 
 void check_textures(cub3d_s *cub3d, char **split)
 {
+    if (split[2])
+        p_error("Invalid Resources");
     if ((!ft_strncmp(split[0], "NO", 2) && cub3d->north_texture)
         || !ft_strncmp(split[0], "SO", 2) && cub3d->south_texture
         || !ft_strncmp(split[0], "WE", 2) && cub3d->west_texture
@@ -276,6 +283,15 @@ void parse_map(cub3d_s *cub3d)
     
 }
 
+void is_txt_avail(cub3d_s *cub3d)
+{
+    if (open(cub3d->west_texture, O_RDONLY) == -1
+        || open(cub3d->north_texture, O_RDONLY) == -1
+        || open(cub3d->east_texture, O_RDONLY) == -1
+        || open(cub3d->south_texture, O_RDONLY) == -1)
+        p_error("Invalid Resources");
+}
+
 void read_map_elements(cub3d_s *cub3d)
 {
     int i = 0;
@@ -290,6 +306,7 @@ void read_map_elements(cub3d_s *cub3d)
     read = read_file(cub3d);
     get_map_layout(cub3d, read);
     parse_map(cub3d);
+    is_txt_avail(cub3d);
     while (cub3d->map[i])
     {
         printf("%s\n", cub3d->map[i]);
