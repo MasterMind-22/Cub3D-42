@@ -27,7 +27,8 @@ typedef struct cub3d_t
     int     ceiling_color;
     int     floor_color;
     int     map_length;
-} cub3d_s;
+    int     count;
+} t_cub3d;
 
 
 /******************** LIBFT/GNL FUNCS ********************/
@@ -54,7 +55,7 @@ void	free_strs(char **strs, int i);
 /******************** Cub3D FUNCS ********************/
 
 char    *check_extension(char *av);
-void    read_map_elements(cub3d_s *cub3d);
-void    init_struct(cub3d_s *cub3d);
+void    read_map_elements(t_cub3d *cub3d);
+void    init_struct(t_cub3d *cub3d);
 
 #endif

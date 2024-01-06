@@ -51,7 +51,7 @@ int count_char(char *str, char c)
     }
     return (count);
 }
-int save_colors(cub3d_s *cub3d, char **colors, char c)
+int save_colors(t_cub3d *cub3d, char **colors, char c)
 {
     int i;
     int j;
@@ -74,10 +74,11 @@ int save_colors(cub3d_s *cub3d, char **colors, char c)
     if (c == 'F')
         cub3d->floor_color = deci_to_hexa_color(
             ft_atoi(colors[0]), ft_atoi(colors[1]), ft_atoi(colors[2]));
+    free_strs(colors, 0);
     return (0);
 }
 
-int check_colors(cub3d_s *cub3d, char **split)
+int check_colors(t_cub3d *cub3d, char **split)
 {
     int i;
     int start;
@@ -100,13 +101,13 @@ int check_colors(cub3d_s *cub3d, char **split)
         }
     }
     colors[c] = NULL;
-    if (save_colors(cub3d, colors, split[0][0]))
+    if (c != 3 || save_colors(cub3d, colors, split[0][0]))
         return(free_strs(colors, 0), 1);
     return (0);
 }
 
 
-void check_textures(cub3d_s *cub3d, char **split)
+void check_textures(t_cub3d *cub3d, char **split)
 {
     if (split[2])
         p_error("Invalid Resources");
@@ -131,7 +132,7 @@ void check_textures(cub3d_s *cub3d, char **split)
             p_error("Invalid color");
     }
 }
-char *fill_empty_space_in_map(cub3d_s *cub3d, char *str, char **read)
+char *fill_empty_space_in_map(t_cub3d *cub3d, char *str, char **read)
 {
     int i;
     int longest;
@@ -160,9 +161,10 @@ char *fill_empty_space_in_map(cub3d_s *cub3d, char *str, char **read)
     return(result);
 }
 
-void get_map(cub3d_s *cub3d, char **read)
+void get_map(t_cub3d *cub3d, char **read)
 {
     int i;
+    char *tmp;
 
     i = 0;
     while (read[i])
@@ -172,7 +174,9 @@ void get_map(cub3d_s *cub3d, char **read)
     i = 0;
     while (read[i])
     {
-        cub3d->map[i] = fill_empty_space_in_map(cub3d, ft_strtrim(read[i], "\n"), read);
+        tmp = ft_strtrim(read[i], "\n");
+        cub3d->map[i] = fill_empty_space_in_map(cub3d, tmp, read);
+        free(tmp);
         if (!ft_strlen(cub3d->map[i]) 
             || (count_char(read[i], '\n') && !read[i + 1])
             || is_that_char(cub3d->map[i]))
@@ -182,7 +186,7 @@ void get_map(cub3d_s *cub3d, char **read)
     cub3d->map[i] = NULL;
 }
 
-void get_map_layout(cub3d_s *cub3d, char **read)
+void get_map_layout(t_cub3d *cub3d, char **read)
 {
     char    *str;
     char    **split;
@@ -208,7 +212,7 @@ void get_map_layout(cub3d_s *cub3d, char **read)
     }
 }
 
-int  file_col_num(cub3d_s *cub3d)
+int  file_col_num(t_cub3d *cub3d)
 {
     int count;
     char *str;
@@ -226,7 +230,7 @@ int  file_col_num(cub3d_s *cub3d)
     return (count);
 }
 
-char **read_file(cub3d_s *cub3d)
+char **read_file(t_cub3d *cub3d)
 {
     char    **file_content;
     char    *str;
@@ -248,20 +252,37 @@ char **read_file(cub3d_s *cub3d)
     close(fd);
     return (file_content);
 }
+void more_checks(t_cub3d *cub3d)
+{
+    int i;
+
+    i  = -1;
+    while (++i < cub3d->map_length)
+    {
+        cub3d->count += count_char(cub3d->map[i], 'E');
+        cub3d->count += count_char(cub3d->map[i], 'W');
+        cub3d->count += count_char(cub3d->map[i], 'N');
+        cub3d->count += count_char(cub3d->map[i], 'S');
+    }
+    if (cub3d->ceiling_color == -1 || cub3d->floor_color == -1)
+        p_error("Invalid color");
+}
 
 int check_wall(char c)
 {
-    if (c == '1' || c == 'N' || c == '0')
+    if (c == '1' || c == 'N' || c == '0' || c == 'E'
+        || c == 'W' || c == 'S')
         return(1);
     return (0);
 }
 
-void parse_map(cub3d_s *cub3d)
+void parse_map(t_cub3d *cub3d)
 {
     int i;
     int j;
 
     i = 0;
+    more_checks(cub3d);
     while (i < cub3d->map_length)
     {
         j = 0;
@@ -273,17 +294,17 @@ void parse_map(cub3d_s *cub3d)
                     || !check_wall(cub3d->map[i][j + 1])
                     || !check_wall(cub3d->map[i][j - 1])
                     || !check_wall(cub3d->map[i + 1][j])
-                    || !check_wall(cub3d->map[i - 1][j]))
+                    || !check_wall(cub3d->map[i - 1][j])
+                    || cub3d->count != 1)
                     p_error("Invalid map");
             }
             j++;
         }
         i++;
     }
-    
 }
 
-void is_txt_avail(cub3d_s *cub3d)
+void is_txt_avail(t_cub3d *cub3d)
 {
     if (open(cub3d->west_texture, O_RDONLY) == -1
         || open(cub3d->north_texture, O_RDONLY) == -1
@@ -291,12 +312,17 @@ void is_txt_avail(cub3d_s *cub3d)
         || open(cub3d->south_texture, O_RDONLY) == -1)
         p_error("Invalid Resources");
 }
-
-void read_map_elements(cub3d_s *cub3d)
+void fun()
+{
+    system("leaks cub3D");
+}
+void read_map_elements(t_cub3d *cub3d)
 {
     int i = 0;
     char **read;
 
+    atexit(fun);
+    cub3d->count = 0;
     cub3d->east_texture = NULL;
     cub3d->west_texture = NULL;
     cub3d->south_texture = NULL;
@@ -305,8 +331,10 @@ void read_map_elements(cub3d_s *cub3d)
     cub3d->floor_color = -1;
     read = read_file(cub3d);
     get_map_layout(cub3d, read);
+    free_strs(read, 0);
     parse_map(cub3d);
     is_txt_avail(cub3d);
+    printf("%d\n\n", cub3d->count);
     while (cub3d->map[i])
     {
         printf("%s\n", cub3d->map[i]);
@@ -319,9 +347,5 @@ void read_map_elements(cub3d_s *cub3d)
     printf("SO : %s\n", cub3d->south_texture);
     printf("WE : %s\n", cub3d->west_texture);
     printf("EA : %s\n", cub3d->east_texture);
-    // if (open(cub3d->north_texture, O_RDONLY) == -1)
-    //     printf("File not found!\n");
-    // else
-    //     printf("File found!\n");
 }
 
