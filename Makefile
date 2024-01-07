@@ -14,12 +14,12 @@ SRCS =	parsing.c \
 
 OBJS = ${SRCS:.c=.o}
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror+
+CFLAGS = -Wall -Wextra -Werror
 
 all : ${NAME}
 
 $(NAME) : $(OBJS)
-		$(CC) $(OBJS) $(Framework_macos)  -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) $(Framework_macos)  -o $(NAME)
 
 clean :
 	@ rm -f ${OBJS}

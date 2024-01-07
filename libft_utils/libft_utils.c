@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 18:24:23 by yonadry           #+#    #+#             */
+/*   Updated: 2024/01/07 18:25:23 by yonadry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-void ft_putchar(char c)
+void	ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }
 
-void ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        ft_putchar(str[i]);
-        i++;
-    }
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -46,10 +58,10 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-void p_error(char *error)
+void	p_error(char *error)
 {
-    ft_putstr("Error!\n");
-    ft_putstr(error);
-    ft_putstr("\n");
-    exit(1);
+	ft_putstr("Error!\n");
+	ft_putstr(error);
+	ft_putstr("\n");
+	exit(1);
 }

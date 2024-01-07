@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 18:26:57 by yonadry           #+#    #+#             */
+/*   Updated: 2024/01/07 18:40:45 by yonadry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-
-void free_all(t_cub3d *cub3d)
+void    free_all(t_cub3d *cub3d)
 {
-        free(cub3d->east_texture);
-        free(cub3d->north_texture);
-        free(cub3d->west_texture);
-        free(cub3d->south_texture);
-        free_strs(cub3d->map, 0);
-        free(cub3d);
+    free(cub3d->east_texture);
+    free(cub3d->north_texture);
+    free(cub3d->west_texture);
+    free(cub3d->south_texture);
+    free_strs(cub3d->map, 0);
+    free(cub3d);
 }
 
 int main(int ac, char **av)
 {
     t_cub3d *cub3d;
+
     if (ac == 2)
     {
         cub3d = malloc(sizeof(t_cub3d));

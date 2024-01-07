@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 18:40:09 by yonadry           #+#    #+#             */
+/*   Updated: 2024/01/07 18:40:26 by yonadry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # ifndef BUFFER_SIZE
 
@@ -19,14 +31,14 @@ typedef struct cub3d_t
 {
     char    **map;
     int     flag;
-    char     *file_name;
+    char    *file_name;
     char    *north_texture;
     char    *south_texture;
     char    *west_texture;
     char    *east_texture;
     int     ceiling_color;
     int     floor_color;
-    int     map_length;
+    size_t  map_length;
     int     count;
 } t_cub3d;
 

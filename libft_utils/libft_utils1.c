@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft_utils1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 18:23:45 by yonadry           #+#    #+#             */
+/*   Updated: 2024/01/07 18:24:00 by yonadry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 char	*ft_strstr(const char *str, const char *sub)
@@ -47,6 +59,7 @@ int	ft_atoi(const char *str)
 	}
 	return (res * sign);
 }
+
 int	ft_issame(char find, char *str)
 {
 	int	i;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 18:26:34 by yonadry           #+#    #+#             */
+/*   Updated: 2024/01/07 18:26:37 by yonadry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int is_that_char(char *str)
@@ -7,31 +19,28 @@ int is_that_char(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] != '1' && str[i] != '0' && str[i] != ' '
-            && str[i] != 'E' && str[i] != 'W' && str[i] != 'N'
-            && str[i] != 'S' && str[i] != '+')
-                return (1);
+        if (str[i] != '1' && str[i] != '0' && str[i] != ' ' && str[i] != 'E' && str[i] != 'W' && str[i] != 'N' && str[i] != 'S' && str[i] != '+')
+            return (1);
         i++;
     }
     return (0);
 }
 int deci_to_hexa_color(int red, int green, int blue)
 {
-    int  rgb = (red << 16) | (green << 8) | blue;
+    int rgb = (red << 16) | (green << 8) | blue;
     return (rgb);
 }
 
-char  *check_extension(char *av)
+char *check_extension(char *av)
 {
     int fd;
 
     fd = open(av, O_RDONLY);
-    if (ft_strncmp(".cub", av + (ft_strlen(av) - 4), 4)
-        || fd == -1)
-        {
-            close(fd);
-            p_error("Invalid Extension");
-        }
+    if (ft_strncmp(".cub", av + (ft_strlen(av) - 4), 4) || fd == -1)
+    {
+        close(fd);
+        p_error("Invalid Extension");
+    }
     close(fd);
     return (av);
 }
@@ -66,7 +75,7 @@ int save_colors(t_cub3d *cub3d, char **colors, char c)
                 return (1);
         }
         if (ft_atoi(colors[i]) < 0 || ft_atoi(colors[i]) > 255)
-                return (1);
+            return (1);
     }
     if (c == 'C')
         cub3d->ceiling_color = deci_to_hexa_color(
@@ -93,8 +102,7 @@ int check_colors(t_cub3d *cub3d, char **split)
         if (split[1][i] != 32)
         {
             start = i;
-            while ((split[1][i] && split[1][i] != ',')
-                || (split[1][i] && !split[1][i+1]))
+            while ((split[1][i] && split[1][i] != ',') || (split[1][i] && !split[1][i + 1]))
                 i++;
             if ((split[1][i] && split[1][i] == ',') || !split[1][i + 1])
                 colors[c++] = ft_substr(split[1], start, i - start);
@@ -102,21 +110,15 @@ int check_colors(t_cub3d *cub3d, char **split)
     }
     colors[c] = NULL;
     if (c != 3 || save_colors(cub3d, colors, split[0][0]))
-        return(free_strs(colors, 0), 1);
+        return (free_strs(colors, 0), 1);
     return (0);
 }
-
 
 void check_textures(t_cub3d *cub3d, char **split)
 {
     if (split[2])
         p_error("Invalid Resources");
-    if ((!ft_strncmp(split[0], "NO", 2) && cub3d->north_texture)
-        || !ft_strncmp(split[0], "SO", 2) && cub3d->south_texture
-        || !ft_strncmp(split[0], "WE", 2) && cub3d->west_texture
-        || !ft_strncmp(split[0], "EA", 2) && cub3d->east_texture
-        || !ft_strncmp(split[0], "F", 1) && cub3d->floor_color >= 0
-        || !ft_strncmp(split[0], "C", 1) && cub3d->ceiling_color >= 0)
+    if ((!ft_strncmp(split[0], "NO", 2) && cub3d->north_texture) || (!ft_strncmp(split[0], "SO", 2) && cub3d->south_texture) || (!ft_strncmp(split[0], "WE", 2) && cub3d->west_texture) || (!ft_strncmp(split[0], "EA", 2) && cub3d->east_texture) || (!ft_strncmp(split[0], "F", 1) && cub3d->floor_color >= 0) || (!ft_strncmp(split[0], "C", 1) && cub3d->ceiling_color >= 0))
         p_error("Duplicated Resources");
     else if (!ft_strncmp(split[0], "NO", 2))
         cub3d->north_texture = ft_strdup(split[1]);
@@ -134,8 +136,8 @@ void check_textures(t_cub3d *cub3d, char **split)
 }
 char *fill_empty_space_in_map(t_cub3d *cub3d, char *str, char **read)
 {
-    int i;
-    int longest;
+    size_t i;
+    size_t longest;
     char *result;
 
     i = -1;
@@ -158,7 +160,7 @@ char *fill_empty_space_in_map(t_cub3d *cub3d, char *str, char **read)
     while (i < longest)
         result[i++] = '+';
     result[i] = '\0';
-    return(result);
+    return (result);
 }
 
 void get_map(t_cub3d *cub3d, char **read)
@@ -168,7 +170,7 @@ void get_map(t_cub3d *cub3d, char **read)
 
     i = 0;
     while (read[i])
-       i++;
+        i++;
     cub3d->map_length = i;
     cub3d->map = malloc(sizeof(char *) * (i + 2));
     i = 0;
@@ -177,9 +179,7 @@ void get_map(t_cub3d *cub3d, char **read)
         tmp = ft_strtrim(read[i], "\n");
         cub3d->map[i] = fill_empty_space_in_map(cub3d, tmp, read);
         free(tmp);
-        if (!ft_strlen(cub3d->map[i]) 
-            || (count_char(read[i], '\n') && !read[i + 1])
-            || is_that_char(cub3d->map[i]))
+        if (!ft_strlen(cub3d->map[i]) || (count_char(read[i], '\n') && !read[i + 1]) || is_that_char(cub3d->map[i]))
             p_error("Invalid map");
         i++;
     }
@@ -188,31 +188,30 @@ void get_map(t_cub3d *cub3d, char **read)
 
 void get_map_layout(t_cub3d *cub3d, char **read)
 {
-    char    *str;
-    char    **split;
-    int     i;
+    char *str;
+    char **split;
+    int i;
 
     i = 0;
     while (read[i])
     {
-            str = ft_strtrim(read[i], "\n ");
-            split = ft_split(str, ' ');
-            free(str);
-            if (split[0] && split[1])
-                check_textures(cub3d, split);
-            if ((count_char(read[i], '1') || count_char(read[i], '0'))
-                && (count_char(split[0], '1') || count_char(split[0], '0')))
-                {
-                    free_strs(split, 0);
-                    get_map(cub3d, &read[i]);
-                    return;
-                }
-                free_strs(split, 0);
-            i++;
+        str = ft_strtrim(read[i], "\n ");
+        split = ft_split(str, ' ');
+        free(str);
+        if (split[0] && split[1])
+            check_textures(cub3d, split);
+        if ((count_char(read[i], '1') || count_char(read[i], '0')) && (count_char(split[0], '1') || count_char(split[0], '0')))
+        {
+            free_strs(split, 0);
+            get_map(cub3d, &read[i]);
+            return;
+        }
+        free_strs(split, 0);
+        i++;
     }
 }
 
-int  file_col_num(t_cub3d *cub3d)
+int file_col_num(t_cub3d *cub3d)
 {
     int count;
     char *str;
@@ -232,10 +231,10 @@ int  file_col_num(t_cub3d *cub3d)
 
 char **read_file(t_cub3d *cub3d)
 {
-    char    **file_content;
-    char    *str;
-    int     i;
-    int     fd;
+    char **file_content;
+    char *str;
+    int i;
+    int fd;
 
     i = 0;
     fd = open(cub3d->file_name, O_RDONLY);
@@ -254,9 +253,9 @@ char **read_file(t_cub3d *cub3d)
 }
 void more_checks(t_cub3d *cub3d)
 {
-    int i;
+    size_t i;
 
-    i  = -1;
+    i = -1;
     while (++i < cub3d->map_length)
     {
         cub3d->count += count_char(cub3d->map[i], 'E');
@@ -270,16 +269,15 @@ void more_checks(t_cub3d *cub3d)
 
 int check_wall(char c)
 {
-    if (c == '1' || c == 'N' || c == '0' || c == 'E'
-        || c == 'W' || c == 'S')
-        return(1);
+    if (c == '1' || c == 'N' || c == '0' || c == 'E' || c == 'W' || c == 'S')
+        return (1);
     return (0);
 }
 
 void parse_map(t_cub3d *cub3d)
 {
-    int i;
-    int j;
+    size_t i;
+    size_t j;
 
     i = 0;
     more_checks(cub3d);
@@ -290,12 +288,7 @@ void parse_map(t_cub3d *cub3d)
         {
             if (cub3d->map[i][j] == '0')
             {
-                if (i == 0 || i == cub3d->map_length - 1
-                    || !check_wall(cub3d->map[i][j + 1])
-                    || !check_wall(cub3d->map[i][j - 1])
-                    || !check_wall(cub3d->map[i + 1][j])
-                    || !check_wall(cub3d->map[i - 1][j])
-                    || cub3d->count != 1)
+                if (i == 0 || i == cub3d->map_length - 1 || !check_wall(cub3d->map[i][j + 1]) || !check_wall(cub3d->map[i][j - 1]) || !check_wall(cub3d->map[i + 1][j]) || !check_wall(cub3d->map[i - 1][j]) || cub3d->count != 1)
                     p_error("Invalid map");
             }
             j++;
@@ -306,10 +299,7 @@ void parse_map(t_cub3d *cub3d)
 
 void is_txt_avail(t_cub3d *cub3d)
 {
-    if (open(cub3d->west_texture, O_RDONLY) == -1
-        || open(cub3d->north_texture, O_RDONLY) == -1
-        || open(cub3d->east_texture, O_RDONLY) == -1
-        || open(cub3d->south_texture, O_RDONLY) == -1)
+    if (open(cub3d->west_texture, O_RDONLY) == -1 || open(cub3d->north_texture, O_RDONLY) == -1 || open(cub3d->east_texture, O_RDONLY) == -1 || open(cub3d->south_texture, O_RDONLY) == -1)
         p_error("Invalid Resources");
 }
 void fun()
@@ -348,4 +338,3 @@ void read_map_elements(t_cub3d *cub3d)
     printf("WE : %s\n", cub3d->west_texture);
     printf("EA : %s\n", cub3d->east_texture);
 }
-
