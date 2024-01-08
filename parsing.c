@@ -141,6 +141,7 @@ char *fill_empty_space_in_map(t_cub3d *cub3d, char *str, char **read)
     char *result;
 
     i = -1;
+    longest = 0;
     while (++i < cub3d->map_length)
     {
         if (ft_strlen(read[i]) > longest)

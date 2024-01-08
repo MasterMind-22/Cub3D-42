@@ -19,7 +19,7 @@ CFLAGS = -Wall -Wextra -Werror
 all : ${NAME}
 
 $(NAME) : $(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) $(Framework_macos)  -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) $(Framework_linux)  -o $(NAME)
 
 clean :
 	@ rm -f ${OBJS}
