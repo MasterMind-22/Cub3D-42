@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:26:34 by yonadry           #+#    #+#             */
-/*   Updated: 2024/01/07 18:26:37 by yonadry          ###   ########.fr       */
+/*   Updated: 2024/02/11 01:49:50 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+#include "raycasting.h"
 
 int is_that_char(char *str)
 {
@@ -287,9 +288,14 @@ void parse_map(t_cub3d *cub3d)
         j = 0;
         while (j < ft_strlen(cub3d->map[i]))
         {
-            if (cub3d->map[i][j] == '0')
+            if (cub3d->map[i][j] == '0' || cub3d->map[i][j] == 'N'
+                || cub3d->map[i][j] == 'S'
+                || cub3d->map[i][j] == 'E' || cub3d->map[i][j] == 'W')
             {
-                if (i == 0 || i == cub3d->map_length - 1 || !check_wall(cub3d->map[i][j + 1]) || !check_wall(cub3d->map[i][j - 1]) || !check_wall(cub3d->map[i + 1][j]) || !check_wall(cub3d->map[i - 1][j]) || cub3d->count != 1)
+                if (i == 0 || i == cub3d->map_length - 1
+                    || !check_wall(cub3d->map[i][j + 1]) || !check_wall(cub3d->map[i][j - 1])
+                    || !check_wall(cub3d->map[i + 1][j]) || !check_wall(cub3d->map[i - 1][j])
+                    || cub3d->count != 1)
                     p_error("Invalid map");
             }
             j++;
@@ -312,7 +318,7 @@ void read_map_elements(t_cub3d *cub3d)
     int i = 0;
     char **read;
 
-    atexit(fun);
+    // atexit(fun);
     cub3d->count = 0;
     cub3d->east_texture = NULL;
     cub3d->west_texture = NULL;
