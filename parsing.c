@@ -95,19 +95,20 @@ int check_colors(t_cub3d *cub3d, char **split)
     int c;
     char **colors;
 
-    i = -1;
+    i = 0;
     c = 0;
     colors = malloc(sizeof(char *) * 4);
-    while (split[1][++i])
+    while (i < (int) ft_strlen(split[1]))
     {
         if (split[1][i] != 32)
         {
             start = i;
             while ((split[1][i] && split[1][i] != ',') || (split[1][i] && !split[1][i + 1]))
                 i++;
-            if ((split[1][i] && split[1][i] == ',') || !split[1][i + 1])
+            // if (i < (int) ft_strlen(split[1]) &&  ((split[1][i] && split[1][i] == ',') || !split[1][i + 1]))
                 colors[c++] = ft_substr(split[1], start, i - start);
         }
+        i++;
     }
     colors[c] = NULL;
     if (c != 3 || save_colors(cub3d, colors, split[0][0]))

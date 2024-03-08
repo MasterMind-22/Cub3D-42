@@ -6,14 +6,14 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:26:57 by yonadry           #+#    #+#             */
-/*   Updated: 2024/02/23 20:17:43 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:21:43 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "cub3d.h"
 #include "raycasting.h"
 
-void	mr()
+void	mr(void)
 {
 	system ("leaks cub3D");
 }
@@ -30,9 +30,17 @@ void	free_all(t_cub3d *cub3d)
 
 void	mlx_art(t_cub3d *usef, t_ray *strahl, t_play *parzival)
 {
+	// t_cast	*dataray;
+
 	strahl->start = mlx_init ();
 	the_longest_line (usef, strahl);
 	init_player (strahl, usef);
+	// strahl->dataray = (t_cast *) malloc (sizeof (t_cast) * strahl->plays->num_of_rays);
+	// dataray = (t_cast *) malloc (sizeof (t_cast) * strahl->plays->num_of_rays);
+	// if (!strahl->dataray)
+	// 	return ;
+	// else
+	// 	printf ("3amra %f\n",strahl->dataray->first_hit_x);
 	get_curnt_posi (parzival, usef);
 	strahl->window = mlx_new_window (strahl->start, strahl->the_long_line * 32,
 			strahl->the_rows * 32, "MUSLIM");
@@ -53,7 +61,7 @@ int	main(int ac, char **av)
 {
 	t_cub3d	*cub3d;
 	t_ray	*strahl;
-	// atexit (mr);
+
 	if (ac == 2)
 	{
 		cub3d = malloc(sizeof(t_cub3d));
@@ -61,6 +69,11 @@ int	main(int ac, char **av)
 		strahl->plays = malloc (sizeof(t_play));
 		strahl->my_image = malloc (sizeof (t_img));
 		strahl->algo = malloc (sizeof (t_dda));
+		if (!cub3d || !strahl || !strahl->plays || !strahl->my_image || !strahl->algo)
+		{
+			printf ("bad pass!\n");
+			return (0);
+		}
 		cub3d->file_name = check_extension(av[1]);
 		read_map_elements(cub3d);
 		strahl->game_map = cub3d->map;
