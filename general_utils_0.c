@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:48:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/02/22 22:08:10 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/14 02:20:25 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,3 @@ double	rad2deg(double radians)
 {
 	return (radians * (180.0 / M_PI));
 }
-// window 320 x 200;
-// distance between rays = 60 / 320;

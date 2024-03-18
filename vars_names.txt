@@ -1,0 +1,35 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    vars_names.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/16 07:40:15 by momihamm          #+#    #+#              #
+#    Updated: 2024/03/16 08:25:25 by momihamm         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+yintercept = first_hit_y;
+xintercept = first_hit_x;
+Ystep = y_move;
+Xstep = x_move;
+TILE_SIZE = tile;
+NextHorzTouchX = next_h_x;
+NextHorzTouchY = next_h_y;
+NextVirtYouchX = next_vir_x;
+NextVirtYouchY = next_vir_y;
+HorzwallhitX = horzwall_hit_x;
+HorzwallhitY = horzwall_hit_y;
+VertwallhitY = vir_wall_hit_y;
+VertwallhitX = vir_wall_hit_x;
+distance = massafa;
+Number.MAX_VALUE  = MAX_INT;
+rotationAngle = rot_ang;
+FOV_ANGLE = f_o_v;
+NUM_RAYS = RAYS_WINDOW_WIDTH(num of rays and window_width);
+rayAngle = ray_ang;
+WINDOW_HEIGHT = 860;
+WINDOW_WIDTH = 1440;
+correctWallDistance = corect_lengh;
+distanceProjectionPlane = dest_por_wall;

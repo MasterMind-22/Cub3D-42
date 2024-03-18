@@ -6,11 +6,10 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:26:57 by yonadry           #+#    #+#             */
-/*   Updated: 2024/03/07 17:21:43 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/16 08:29:07 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "cub3d.h"
 #include "raycasting.h"
 
 void	mr(void)
@@ -30,30 +29,21 @@ void	free_all(t_cub3d *cub3d)
 
 void	mlx_art(t_cub3d *usef, t_ray *strahl, t_play *parzival)
 {
-	// t_cast	*dataray;
-
 	strahl->start = mlx_init ();
 	the_longest_line (usef, strahl);
 	init_player (strahl, usef);
-	// strahl->dataray = (t_cast *) malloc (sizeof (t_cast) * strahl->plays->num_of_rays);
-	// dataray = (t_cast *) malloc (sizeof (t_cast) * strahl->plays->num_of_rays);
-	// if (!strahl->dataray)
-	// 	return ;
-	// else
-	// 	printf ("3amra %f\n",strahl->dataray->first_hit_x);
 	get_curnt_posi (parzival, usef);
-	strahl->window = mlx_new_window (strahl->start, strahl->the_long_line * 32,
-			strahl->the_rows * 32, "MUSLIM");
+	strahl->window = mlx_new_window (strahl->start, RAYS_WINDOW_WIDTH,
+			WINDOW_HEIGHT, "CUB 3D");
 	strahl->my_image->mlx_img = mlx_new_image (strahl->start,
-			strahl->the_long_line * 32, strahl->the_rows * 32);
+			RAYS_WINDOW_WIDTH, WINDOW_HEIGHT);
 	strahl->my_image->data_addr = mlx_get_data_addr (strahl->my_image->mlx_img,
 			&strahl->my_image->intperpixl, &strahl->my_image->lenofline,
 			&strahl->my_image->end);
-	ft_draw (strahl, parzival);
 	mlx_hook (strahl->window, 2, 0, ft_move, strahl);
 	mlx_hook (strahl->window, 3, 0, ft_mover, strahl);
-	mlx_loop_hook(strahl->start, ft_again, strahl);
 	mlx_hook (strahl->window, 17, 0, close_the_win, NULL);
+	mlx_loop_hook(strahl->start, ft_again, strahl);
 	mlx_loop (strahl->start);
 }
 
@@ -69,7 +59,9 @@ int	main(int ac, char **av)
 		strahl->plays = malloc (sizeof(t_play));
 		strahl->my_image = malloc (sizeof (t_img));
 		strahl->algo = malloc (sizeof (t_dda));
-		if (!cub3d || !strahl || !strahl->plays || !strahl->my_image || !strahl->algo)
+		strahl->cub3d = cub3d;
+		if (!cub3d || !strahl || !strahl->plays
+			|| !strahl->my_image || !strahl->algo)
 		{
 			printf ("bad pass!\n");
 			return (0);

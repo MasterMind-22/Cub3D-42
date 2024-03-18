@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:44:11 by momihamm          #+#    #+#             */
-/*   Updated: 2024/02/19 11:05:20 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/15 00:43:27 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	player_and_culor(t_ray *obj, int row, int clm)
 	if (obj->game_map[row][clm] == '1')
 		obj->colur = 0x005EFF;
 	else if ((obj->game_map[row][clm]) == '+')
-		obj->colur = 0xB200FF;
-	else
 		obj->colur = 0x000000;
+	else
+		obj->colur = 0xFF0000;
 }
 
 void	make_square(int row, int clm, t_ray *object)
