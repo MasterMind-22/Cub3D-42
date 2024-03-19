@@ -38,8 +38,8 @@ int	is_ray_hit_wall(t_ray *obj, double x, double y)
 	int	row;
 	int	clm;
 
-	clm = floor (x / 32);
-	row = floor (y / 32);
+	clm = floor (x / GRID_SIZE);
+	row = floor (y / GRID_SIZE);
 	if (row < obj->the_rows && clm < obj->the_long_line)
 	{
 		if (!ft_strchr("0NEWS", obj->game_map[row][clm]))
@@ -55,15 +55,15 @@ int	is_wall(t_ray *obj, double x, double y)
 	int	i;
 
 	i = 0;
-	clm = floor (x / 32);
-	row = floor (y / 32);
+	clm = floor (x / GRID_SIZE);
+	row = floor (y / GRID_SIZE);
 	if (obj->game_map[row][clm] == '1')
 		i++;
-	clm = floor (obj->plays->new_x / 32);
+	clm = floor (obj->plays->new_x / GRID_SIZE);
 	if (obj->game_map[row][clm] == '1')
 		i++;
-	clm = floor (x / 32);
-	row = floor (obj->plays->new_y / 32);
+	clm = floor (x / GRID_SIZE);
+	row = floor (obj->plays->new_y / GRID_SIZE);
 	if (obj->game_map[row][clm] == '1')
 		i++;
 	if (i > 0)

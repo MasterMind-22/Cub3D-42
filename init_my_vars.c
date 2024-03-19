@@ -22,8 +22,8 @@ void	init_player(t_ray *ready, t_cub3d *usef)
 	ready->plays->f_o_v = deg2rad (60.00);
 	ready->plays->pixel_per_colum = 1;
 	ready->plays->num_of_rays = RAYS_WINDOW_WIDTH;
-	ready->my_image->win_w = ready->the_long_line * 32;
-	ready->my_image->win_h = ready->the_rows * 32;
+	ready->my_image->win_w = ready->the_long_line * GRID_SIZE;
+	ready->my_image->win_h = ready->the_rows * GRID_SIZE;
 	ready->dest_por_wall = (RAYS_WINDOW_WIDTH / 2)
 		/ tan (ready->plays->f_o_v / 2);
 	ready->ceiling = usef->ceiling_color;
@@ -32,7 +32,7 @@ void	init_player(t_ray *ready, t_cub3d *usef)
 
 void	init_cast(t_ray *starlight)
 {
-	starlight->plays->tile = 32;
+	starlight->plays->tile = GRID_SIZE;
 	starlight->plays->x_move = 0;
 	starlight->plays->y_move = 0;
 }

@@ -27,9 +27,9 @@ void	make_square(int row, int clm, t_ray *object)
 	int	var[5];
 
 	var[0] = 0;
-	var[1] = clm * 32;
-	var[2] = row * 32;
-	var[3] = 32;
+	var[1] = clm * GRID_SIZE;
+	var[2] = row * GRID_SIZE;
+	var[3] = GRID_SIZE;
 	player_and_culor (object, row, clm);
 	while (var[0] < var[3])
 	{

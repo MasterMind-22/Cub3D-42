@@ -42,9 +42,9 @@ int	hor_hit(t_ray *bayren, int id)
 	determine_ange (bayren, id);
 	the_first_hor_hit (bayren, id);
 	while (bayren->dataray[id].next_h_x > 0
-		&& bayren->dataray[id].next_h_x <= (bayren->the_long_line * 32)
+		&& bayren->dataray[id].next_h_x <= (bayren->the_long_line * GRID_SIZE)
 		&& bayren->dataray[id].next_h_y > 0
-		&& bayren->dataray[id].next_h_y <= (bayren->the_rows * 32))
+		&& bayren->dataray[id].next_h_y <= (bayren->the_rows * GRID_SIZE))
 	{
 		ch_y = bayren->dataray[id].next_h_y;
 		if (is_ray_up(bayren->dataray[id].ray_ang))
@@ -92,9 +92,9 @@ int	vir_hit(t_ray *bayren, int id)
 	determine_ange (bayren, id);
 	the_first_vir_hit (bayren, id);
 	while (bayren->dataray[id].next_vir_x > 0
-		&& bayren->dataray[id].next_vir_x <= (bayren->the_long_line * 32)
+		&& bayren->dataray[id].next_vir_x <= (bayren->the_long_line * GRID_SIZE)
 		&& bayren->dataray[id].next_vir_y > 0
-		&& bayren->dataray[id].next_vir_y <= (bayren->the_rows * 32))
+		&& bayren->dataray[id].next_vir_y <= (bayren->the_rows * GRID_SIZE))
 	{
 		x = bayren->dataray[id].next_vir_x;
 		if (is_ray_left(bayren->dataray[id].ray_ang))

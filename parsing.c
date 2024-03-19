@@ -100,7 +100,7 @@ int check_colors(t_cub3d *cub3d, char **split)
     colors = malloc(sizeof(char *) * 4);
     while (i < (int) ft_strlen(split[1]))
     {
-        if (split[1][i] != 32)
+        if (split[1][i] != GRID_SIZE)
         {
             start = i;
             while ((split[1][i] && split[1][i] != ',') || (split[1][i] && !split[1][i + 1]))

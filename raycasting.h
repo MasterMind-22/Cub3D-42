@@ -18,6 +18,7 @@
 
 # define RAYS_WINDOW_WIDTH 1440
 # define WINDOW_HEIGHT 860
+# define GRID_SIZE 64
 
 typedef struct image
 {
@@ -26,6 +27,8 @@ typedef struct image
 	int		intperpixl;
 	int		lenofline;
 	int		end;
+	int		x;
+	int		y;
 	double	win_w;
 	double	win_h;
 }	t_img;
@@ -112,6 +115,10 @@ typedef struct ray
 	double			window_width;
 	double			window_height;
 	double			dest_por_wall;
+	t_img    		*north_texture;
+    t_img    		*south_texture;
+    t_img    		*west_texture;
+    t_img    		*east_texture;
 	t_cub3d			*cub3d;
 	t_img			*my_image;
 	t_play			*plays;

@@ -12,90 +12,51 @@
 
 #include "raycasting.h"
 
-void get_data_addresses(t_ray *obj, int x, int y)
+
+
+int    get_pixel_color(t_img *data, int x, int y)
 {
-	obj->cub3d->east_texture = mlx_xpm_file_to_image(obj->my_image->mlx_img, obj->cub3d->east_texture, &x, &y);
-	obj->cub3d->west_texture = mlx_xpm_file_to_image(obj->my_image->mlx_img, obj->cub3d->west_texture, &x, &y);
-	obj->cub3d->north_texture = mlx_xpm_file_to_image(obj->my_image->mlx_img, obj->cub3d->north_texture, &x, &y);
-	obj->cub3d->south_texture = mlx_xpm_file_to_image(obj->my_image->mlx_img, obj->cub3d->south_texture, &x, &y);
-		if (!obj->cub3d->east_texture || !obj->cub3d->west_texture 
-			|| !obj->cub3d->north_texture || !obj->cub3d->south_texture)
-			return (exit(1));
+    char    *dst;
+
+    dst = data->data_addr + (y * data->lenofline + x * (data->intperpixl / 8));
+    return (*(unsigned int *)dst);
 }
 
-void	make_rege(t_ray *obj, double tol, double ard, int id)
-{
-	double	x;
-	double	y;
-	int		i;
-	int		j;
+// void	make_rege(t_ray *obj, double tol, double ard, int id)
+// {
+// 	double	x;
+// 	double	y;
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	x = id * 1;
-	y = 430 - (obj->dataray[id].wall_length / 2);
-	obj->colur = 0x000099;
+// 	i = 0;
+// 	x = id * 1;
+// 	y = (WINDOW_HEIGHT / 2) - (obj->dataray[id].wall_length / 2);
+// 	obj->colur = 0x000099;
 
-	get_data_addresses(obj, )
-	uint32_t *colorBuffer = malloc(sizeof(uint32_t) * (uint32_t)WINDOW_HEIGHT * (uint32_t)RAYS_WINDOW_WIDTH);
-	int wallStripHeight = (int)obj->dest_por_wall;
-	int wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
-	if (wallTopPixel < 0)
-		wallTopPixel = 0;
 
-	int wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
-	if (wallBottomPixel > WINDOW_HEIGHT)
-		wallBottomPixel = WINDOW_HEIGHT;
-	
-	uint32_t *walltext = malloc(sizeof(uint32_t) * 32 * 32);
-	for (int i = 0; i < 32; i++)
-	{
-		for (int j = 0; j < 32; j++)
-		{
-			if ((j % 8) && (i % 8))
-			{
-				// puts("hello");
-				walltext[(32 * i) + j] = 0xFF47F338;
-			}
-			else
-				walltext[(32 * i) + j] = 0xD466566;
-			// printf("%u\n", walltext[(32 * i) + j]);
-		}
-	}
-
-	// // set color 
-	// for (int i = 0; i < wallTopPixel; i++)
-	// 	colorBuffer[(RAYS_WINDOW_WIDTH * i) + id] = 0xFF334433;
-	
-	int textureOffsetX;
-
-	// printf ("y == %f || x == %f\n\n", obj->dataray[id].y_found_wall, obj->dataray[id].x_found_wall);
-	if (obj->dataray[id].virt)
-		textureOffsetX = ((int)obj->dataray[id].y_found_wall % 32);
-	else
-		textureOffsetX = ((int)obj->dataray[id].x_found_wall % 32);
-	
-	// for (int y = wallTopPixel; y< wallBottomPixel; y++)
-	// {
-	// }
-	int distanceFromtop = y + (wallStripHeight / 2) - (WINDOW_HEIGHT / 2);
-	int textureOffsetY = distanceFromtop * ((double)32 / wallStripHeight);
-	uint32_t txtcolor = walltext[(32 * textureOffsetY) + textureOffsetX];
-	for (int i = wallBottomPixel; i < WINDOW_HEIGHT; i++)
-		colorBuffer[(WINDOW_HEIGHT * i) + id] = txtcolor;
-	while (i < ard)
-	{
-		j = 0;
-		while (j < tol)
-		{
-
-			// colorBuffer[(WINDOW_HEIGHT * i) + id] = txtcolor;
-			put_pix_img (obj->my_image, i + x , y + j, txtcolor);
-			j++;
-		}
-		
-		i++;
-	}
-}
+// 	int textureOffsetX;
+// 	if (obj->dataray[id].virt)
+// 		textureOffsetX = (int)obj->dataray[id].y_found_wall % GRID_SIZE;
+// 	else
+// 		textureOffsetX = (int)obj->dataray[id].x_found_wall % GRID_SIZE;
+// 	while (i < ard)
+// 	{
+// 		j = 0;
+// 		while (j < tol)
+// 		{
+// 			int distanceFromTop = y + (obj->dataray[id].wall_length / 2) - (WINDOW_HEIGHT / 2);
+// 			int textureOffsetY = distanceFromTop * ((float)GRID_SIZE / obj->dataray[id].wall_length);
+// 			unsigned int color  = get_color(obj, textureOffsetX, textureOffsetY);
+// 			// printf ("%d\n", textureOffsetY);
+// 			put_pix_img (obj->my_image, i + x, y + j,
+// 				color);
+// 			j++;
+// 			y++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 void	ceiling_floor(t_ray *obj)
 {
@@ -133,7 +94,38 @@ void	become_3d(t_ray *obj)
 			* obj->dest_por_wall;
 		if (obj->dataray[id].wall_length > RAYS_WINDOW_WIDTH)
 			obj->dataray[id].wall_length = RAYS_WINDOW_WIDTH;
-		make_rege(obj, obj->dataray[id].wall_length, 0.5, id);
+		
+        int wallTopPixel = (WINDOW_HEIGHT / 2) - (obj->dataray[id].wall_length / 2);
+        wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+        int wallBottomPixel = (WINDOW_HEIGHT / 2) + (obj->dataray[id].wall_length / 2);
+        wallBottomPixel = wallBottomPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
+
+		int y = (WINDOW_HEIGHT / 2) - (obj->dataray[id].wall_length / 2);
+		// obj->colur = 0x000099;
+
+
+	int textureOffsetX;
+	if (obj->dataray[id].virt)
+		textureOffsetX = (int)obj->dataray[id].y_found_wall % GRID_SIZE;
+	else
+		textureOffsetX = (int)obj->dataray[id].x_found_wall % GRID_SIZE;
+	for (int y  = wallTopPixel; y < wallBottomPixel; y++)
+	{
+
+			int distanceFromTop = y + (obj->dataray[id].wall_length / 2) - (WINDOW_HEIGHT / 2);
+			int textureOffsetY = distanceFromTop * ((double)GRID_SIZE / obj->dataray[id].wall_length);
+			unsigned int color  = get_pixel_color(obj->north_texture, textureOffsetX, textureOffsetY);
+			// printf ("%d\n", textureOffsetY);
+			put_pix_img (obj->my_image, id, y, color);
+	}
+
+
+
+
+
+		
+		// make_rege(obj, wallTopPixel, wallBottomPixel, id);
 		id++;
 	}
 }

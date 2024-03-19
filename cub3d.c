@@ -26,6 +26,29 @@ void	free_all(t_cub3d *cub3d)
 	free_strs(cub3d->map, 0);
 	free(cub3d);
 }
+void open_textures(t_ray *strahl)
+{
+	strahl->north_texture->mlx_img = mlx_xpm_file_to_image(strahl->start,
+			"./1.xpm", &strahl->north_texture->x, &strahl->north_texture->y);
+	if (!strahl->north_texture->mlx_img)
+	{
+		printf("Error\n");
+		exit(0);
+	}
+	strahl->north_texture->data_addr = mlx_get_data_addr(strahl->north_texture->mlx_img,
+			&strahl->north_texture->intperpixl, &strahl->north_texture->lenofline,
+			&strahl->north_texture->end);
+	// strahl->south_texture = mlx_xpm_file_to_image(strahl->start,
+	// 		strahl->cub3d->south_texture, &strahl->south_texture_width,
+	// 		&strahl->south_texture_height);
+	// strahl->west_texture = mlx_xpm_file_to_image(strahl->start,
+	// 		strahl->cub3d->west_texture, &strahl->west_texture_width,
+	// 		&strahl->west_texture_height);
+	// strahl->east_texture = mlx_xpm_file_to_image(strahl->start,
+	// 		strahl->cub3d->east_texture, &strahl->east_texture_width,
+	// 		&strahl->east_texture_height);
+}
+
 
 void	mlx_art(t_cub3d *usef, t_ray *strahl, t_play *parzival)
 {
@@ -34,12 +57,13 @@ void	mlx_art(t_cub3d *usef, t_ray *strahl, t_play *parzival)
 	init_player (strahl, usef);
 	get_curnt_posi (parzival, usef);
 	strahl->window = mlx_new_window (strahl->start, RAYS_WINDOW_WIDTH,
-			WINDOW_HEIGHT, "CUB 3D");
+			WINDOW_HEIGHT, "CUB3D");
 	strahl->my_image->mlx_img = mlx_new_image (strahl->start,
 			RAYS_WINDOW_WIDTH, WINDOW_HEIGHT);
 	strahl->my_image->data_addr = mlx_get_data_addr (strahl->my_image->mlx_img,
 			&strahl->my_image->intperpixl, &strahl->my_image->lenofline,
 			&strahl->my_image->end);
+	open_textures(strahl);
 	mlx_hook (strahl->window, 2, 0, ft_move, strahl);
 	mlx_hook (strahl->window, 3, 0, ft_mover, strahl);
 	mlx_hook (strahl->window, 17, 0, close_the_win, NULL);
@@ -59,7 +83,8 @@ int	main(int ac, char **av)
 		strahl->plays = malloc (sizeof(t_play));
 		strahl->my_image = malloc (sizeof (t_img));
 		strahl->algo = malloc (sizeof (t_dda));
-		strahl->cub3d = cub3d;
+		strahl->cub3d  = cub3d;
+		strahl->north_texture = malloc (sizeof (t_img));
 		if (!cub3d || !strahl || !strahl->plays
 			|| !strahl->my_image || !strahl->algo)
 		{
