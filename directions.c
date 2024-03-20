@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:50:22 by momihamm          #+#    #+#             */
-/*   Updated: 2024/03/14 02:10:49 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:03:55 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 int	is_ray_up(double ray_angle)
 {
-	return (ray_angle > 0 && ray_angle < M_PI);
+	if (ray_angle > 0 && ray_angle < M_PI)
+		return (1);
+	return (0);
 }
 
 int	is_ray_down(double ray_angle)
 {
-	return (ray_angle < 2 * M_PI && ray_angle >= M_PI);
+	if (!is_ray_up(ray_angle))
+		return (1);
+	return (0);
+
 }
 
 int	is_ray_right(double ray_angle)

@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:36:21 by momihamm          #+#    #+#             */
-/*   Updated: 2024/03/14 05:16:38 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:03:46 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	the_first_hor_hit(t_ray *obj, int id)
 	obj->dataray[id].first_hit_y = floor (obj->plays->y_play
 			/ obj->plays->tile);
 	obj->dataray[id].first_hit_y *= obj->plays->tile;
-	if (is_ray_down(obj->dataray[id].ray_ang))
+	if (is_ray_up(obj->dataray[id].ray_ang))
 		obj->dataray[id].first_hit_y += obj->plays->tile;
 	obj->dataray[id].first_hit_x = obj->plays->x_play
 		+ (obj->dataray[id].first_hit_y - obj->plays->y_play)
 		/ tan(obj->dataray[id].ray_ang);
 	obj->plays->y_move = obj->plays->tile;
-	if (is_ray_up(obj->dataray[id].ray_ang))
+	if (is_ray_down(obj->dataray[id].ray_ang))
 		obj->plays->y_move *= -1;
 	obj->plays->x_move = obj->plays->tile
 		/ tan(obj->dataray[id].ray_ang);
@@ -47,7 +47,7 @@ int	hor_hit(t_ray *bayren, int id)
 		&& bayren->dataray[id].next_h_y <= (bayren->the_rows * GRID_SIZE))
 	{
 		ch_y = bayren->dataray[id].next_h_y;
-		if (is_ray_up(bayren->dataray[id].ray_ang))
+		if (is_ray_down(bayren->dataray[id].ray_ang))
 			ch_y = bayren->dataray[id].next_h_y - 1;
 		if (is_ray_hit_wall (bayren, bayren->dataray[id].next_h_x, ch_y) == -1)
 		{
@@ -77,9 +77,9 @@ void	the_first_vir_hit(t_ray *obj, int id)
 	if (is_ray_left(obj->dataray[id].ray_ang))
 		obj->plays->x_move *= -1;
 	obj->plays->y_move = obj->plays->tile * tan(obj->dataray[id].ray_ang);
-	if (is_ray_up(obj->dataray[id].ray_ang) && obj->plays->y_move > 0)
+	if (is_ray_down(obj->dataray[id].ray_ang) && obj->plays->y_move > 0)
 		obj->plays->y_move *= -1;
-	if (is_ray_down(obj->dataray[id].ray_ang) && obj->plays->y_move < 0)
+	if (is_ray_up(obj->dataray[id].ray_ang) && obj->plays->y_move < 0)
 		obj->plays->y_move *= -1;
 	obj->dataray[id].next_vir_x = obj->dataray[id].first_hit_x;
 	obj->dataray[id].next_vir_y = obj->dataray[id].first_hit_y;
