@@ -66,41 +66,84 @@ void	casting(t_ray *parzi)
 	}
 }
 
-int	ft_again(t_ray *obj)
-{
-	creat_img (obj);
-	casting(obj);
-	ceiling_floor (obj);
-	become_3d (obj);
-	mlx_put_image_to_window (obj->start, obj->window,
-		obj->my_image->mlx_img, 0, 0);
-	return (0);
-}
-
 // int	ft_again(t_ray *obj)
 // {
-// 	int		row;
-// 	int		clm;
-
-// 	row = 0;
 // 	creat_img (obj);
-// 	while (obj->game_map[row])
-// 	{
-// 		clm = 0;
-// 		while (obj->game_map[row][clm])
-// 		{
-// 			if (obj->game_map[row][clm] == '1')
-// 				make_square(row, clm, obj);
-// 			else if (obj->game_map[row][clm] == '+')
-// 				make_square (row, clm, obj);
-// 			clm++;
-// 		}
-// 		row++;
-// 	}
-// 	obj->colur = 0x00FF1A;
 // 	casting(obj);
-// 	draw_line (obj);
+// 	ceiling_floor (obj);
+// 	become_3d (obj);
 // 	mlx_put_image_to_window (obj->start, obj->window,
 // 		obj->my_image->mlx_img, 0, 0);
 // 	return (0);
 // }
+
+int select_texture(t_ray *obj, int id)
+{
+	puts("select_texture");
+	// printf("left = %d\n", is_ray_left(obj->dataray[id].ray_ang));
+	// printf("up = %d\n", is_ray_up(obj->dataray[id].ray_ang));
+	if (is_ray_up(obj->dataray[id].ray_ang) && obj->dataray[id].ray_ang < M_PI)
+	{
+		puts("north");
+		// obj->right_texture->data_addr = obj->north_texture->data_addr;
+		// obj->right_texture->lenofline = obj->north_texture->lenofline;
+		// obj->right_texture->intperpixl = obj->north_texture->intperpixl;
+		return 1;
+	}
+	else if (is_ray_down(obj->dataray[id].ray_ang) && obj->dataray[id].ray_ang > M_PI)
+	{
+		puts("south");
+			// obj->right_texture->data_addr = obj->south_texture->data_addr;
+			// obj->right_texture->lenofline = obj->south_texture->lenofline;
+			// obj->right_texture->intperpixl = obj->south_texture->intperpixl;
+		return 1;
+	
+	}
+	else if (is_ray_left(obj->dataray[id].ray_ang) && obj->dataray[id].virt == 1)
+	{
+		puts("west");
+		// obj->right_texture->data_addr = obj->west_texture->data_addr;
+		// obj->right_texture->lenofline = obj->west_texture->lenofline;
+		// obj->right_texture->intperpixl = obj->west_texture->intperpixl;
+		return 1;
+	}
+	else if (is_ray_right(obj->dataray[id].ray_ang) && obj->dataray[id].horz == 0)
+	{
+		puts("east");
+			// obj->right_texture->data_addr = obj->east_texture->data_addr;
+			// obj->right_texture->lenofline = obj->east_texture->lenofline;
+			// obj->right_texture->intperpixl = obj->east_texture->intperpixl;
+		return 1;
+	
+	}
+	return 0;
+}
+
+int	ft_again(t_ray *obj)
+{
+	int		row;
+	int		clm;
+
+	row = 0;
+	creat_img (obj);
+	while (obj->game_map[row])
+	{
+		clm = 0;
+		while (obj->game_map[row][clm])
+		{
+			if (obj->game_map[row][clm] == '1')
+				make_square(row, clm, obj);
+			else if (obj->game_map[row][clm] == '+')
+				make_square (row, clm, obj);
+			clm++;
+		}
+		row++;
+	}
+	obj->colur = 0x00FF1A;
+	casting(obj);
+	draw_line (obj);
+	select_texture (obj, obj->id);
+	mlx_put_image_to_window (obj->start, obj->window,
+		obj->my_image->mlx_img, 0, 0);
+	return (0);
+}

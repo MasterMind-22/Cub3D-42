@@ -119,6 +119,7 @@ typedef struct ray
     t_img    		*south_texture;
     t_img    		*west_texture;
     t_img    		*east_texture;
+	t_img			*right_texture;
 	t_cub3d			*cub3d;
 	t_img			*my_image;
 	t_play			*plays;

@@ -80,11 +80,50 @@ void	ceiling_floor(t_ray *obj)
 	}
 }
 
+// int select_texture(t_ray *obj, int id)
+// {
+// 	if (obj->dataray[id].is_up && obj->dataray[id].virt == 0)
+// 	{
+// 		puts("north");
+// 		// obj->right_texture->data_addr = obj->north_texture->data_addr;
+// 		// obj->right_texture->lenofline = obj->north_texture->lenofline;
+// 		// obj->right_texture->intperpixl = obj->north_texture->intperpixl;
+// 		return 1;
+// 	}
+// 	else if (!obj->dataray[id].is_down && obj->dataray[id].virt == 0)
+// 	{
+// 		puts("south");
+// 			// obj->right_texture->data_addr = obj->south_texture->data_addr;
+// 			// obj->right_texture->lenofline = obj->south_texture->lenofline;
+// 			// obj->right_texture->intperpixl = obj->south_texture->intperpixl;
+// 		return 1;
+	
+// 	}
+// 	else if (!obj->dataray[id].is_left && obj->dataray[id].virt)
+// 	{
+// 		puts("west");
+// 		// obj->right_texture->data_addr = obj->west_texture->data_addr;
+// 		// obj->right_texture->lenofline = obj->west_texture->lenofline;
+// 		// obj->right_texture->intperpixl = obj->west_texture->intperpixl;
+// 		return 1;
+// 	}
+// 	else if (obj->dataray[id].is_right == 0 && obj->dataray[id].virt)
+// 	{
+// 		puts("east");
+// 			// obj->right_texture->data_addr = obj->east_texture->data_addr;
+// 			// obj->right_texture->lenofline = obj->east_texture->lenofline;
+// 			// obj->right_texture->intperpixl = obj->east_texture->intperpixl;
+// 		return 1;
+	
+// 	}
+// 	return 0;
+// }
+
 void	become_3d(t_ray *obj)
 {
 	int		id;
 	double	corect_lenght;
-
+unsigned int color;
 	id = 0;
 	while (id < RAYS_WINDOW_WIDTH)
 	{
@@ -110,22 +149,18 @@ void	become_3d(t_ray *obj)
 		textureOffsetX = (int)obj->dataray[id].y_found_wall % GRID_SIZE;
 	else
 		textureOffsetX = (int)obj->dataray[id].x_found_wall % GRID_SIZE;
+	// int a = select_texture(obj, id);
 	for (int y  = wallTopPixel; y < wallBottomPixel; y++)
 	{
 
 			int distanceFromTop = y + (obj->dataray[id].wall_length / 2) - (WINDOW_HEIGHT / 2);
 			int textureOffsetY = distanceFromTop * ((double)GRID_SIZE / obj->dataray[id].wall_length);
-			unsigned int color  = get_pixel_color(obj->north_texture, textureOffsetX, textureOffsetY);
-			// printf ("%d\n", textureOffsetY);
+			// if (a)
+			// 	color  = get_pixel_color(obj->right_texture, textureOffsetX, textureOffsetY);
+			// else
+				color = 0x0;
 			put_pix_img (obj->my_image, id, y, color);
 	}
-
-
-
-
-
-		
-		// make_rege(obj, wallTopPixel, wallBottomPixel, id);
 		id++;
 	}
 }

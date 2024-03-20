@@ -12,19 +12,19 @@
 
 #include "raycasting.h"
 
-int	is_ray_down(double ray_angle)
+int	is_ray_up(double ray_angle)
 {
 	return (ray_angle > 0 && ray_angle < M_PI);
 }
 
-int	is_ray_up(double ray_angle)
+int	is_ray_down(double ray_angle)
 {
-	return (!is_ray_down(ray_angle));
+	return (ray_angle < 2 * M_PI && ray_angle >= M_PI);
 }
 
 int	is_ray_right(double ray_angle)
 {
-	if (ray_angle < M_PI / 2 || ray_angle > 3 * M_PI / 2)
+	if (ray_angle < M_PI / 2 || ray_angle > (3 * M_PI) / 2)
 		return (1);
 	return (0);
 }
