@@ -133,7 +133,7 @@ void	make_valus(t_play *blanka, t_ray *obj)
 	blanka->y_play += sin(blanka->rot_ang) * movestep;
 	// printf ("b = %f\n", blanka->rot_ang);
 	norm_rot_angle (&blanka->rot_ang);
-	// printf ("a = %d\n", is_ray_down (blanka->rot_ang));
+	// printf ("a = %d\n", is_ray_right (blanka->rot_ang));
 	// if (is_ray_down (blanka->rot_ang) == 1)
 	// {
 	// 	if ((is_wall (obj, blanka->x_play, blanka->y_play - 5) == -1))
@@ -156,30 +156,61 @@ void	make_valus(t_play *blanka, t_ray *obj)
 	int j = 0;
 	if (is_ray_down (blanka->rot_ang) == 1 && blanka->walk_d == 1)
 	{
-		printf ("up and forward\n");
-		i = 4;
+		// printf ("up and forward\n");
+		i = 5;
 		j = 0;
 	}
 	else if (is_ray_down (blanka->rot_ang) == 1 &&  blanka->walk_d == -1)
 	{
-		printf ("down and back\n");
-		i = -4;
+		// printf ("down and back\n");
+		i = -5;
 		j = 0;
 	}
 	else if (is_ray_down (blanka->rot_ang) == 0 && blanka->walk_d == 1)
 	{
-		printf ("down and forward\n");
-		i = -4;
+		// printf ("down and forward\n");
+		i = -5;
 		j = 0;
 	}
 	else if (is_ray_down (blanka->rot_ang) == 0 &&  blanka->walk_d == -1)
 	{
-		printf ("up and forward\n");
-		i = 4;
+		// printf ("up and forward\n");
+		i = 5;
 		j = 0;
 	}
+	if ((is_wall (obj, blanka->x_play - j, blanka->y_play - i ) == -1))
+		{
+			// if (is_ray_down (blanka->rot_ang) == 1)
+			// 	blanka->y_play -= 5;
+			// printf ("1\n");
+			blanka->x_play = blanka->new_x;
+			blanka->y_play = blanka->new_y;
+		}
 	// #############################################################################################################################################
-	// else if ()
+	if (is_ray_right (blanka->rot_ang) == 1 && blanka->walk_d == 1)
+	{
+		printf ("right and forward\n");
+		i = 0;
+		j = -5;
+	}
+	if (is_ray_right (blanka->rot_ang) == 1 && blanka->walk_d == -1)
+	{
+		printf ("right and back\n");
+		i = 0;
+		j = -3;
+	}
+	if (is_ray_right (blanka->rot_ang) == 0 && blanka->walk_d == 1)
+	{
+		printf ("left and forward\n");
+		i = 0;
+		j = 5;
+	}
+	if (is_ray_right (blanka->rot_ang) == 0 && blanka->walk_d == -1)
+	{
+		printf ("left and back\n");
+		i = 0;
+		j = -5;
+	}
 		if ((is_wall (obj, blanka->x_play - j, blanka->y_play - i ) == -1))
 		{
 			// if (is_ray_down (blanka->rot_ang) == 1)

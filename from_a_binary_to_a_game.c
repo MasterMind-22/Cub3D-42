@@ -75,16 +75,16 @@ void	casting(t_ray *parzi)
 	}
 }
 
-// int	ft_again(t_ray *obj)
-// {
-// 	creat_img (obj);
-// 	casting(obj);
-// 	ceiling_floor (obj);
-// 	become_3d (obj);
-// 	mlx_put_image_to_window (obj->start, obj->window,
-// 		obj->my_image->mlx_img, 0, 0);
-// 	return (0);
-// }
+int	ft_again(t_ray *obj)
+{
+	creat_img (obj);
+	casting(obj);
+	ceiling_floor (obj);
+	become_3d (obj);
+	mlx_put_image_to_window (obj->start, obj->window,
+		obj->my_image->mlx_img, 0, 0);
+	return (0);
+}
 
 // int select_texture(t_ray *obj, int id)
 // {
@@ -128,31 +128,31 @@ void	casting(t_ray *parzi)
 // 	return 0;
 // }
 
-int	ft_again(t_ray *obj)
-{
-	int		row;
-	int		clm;
+// int	ft_again(t_ray *obj)
+// {
+// 	int		row;
+// 	int		clm;
 
-	row = 0;
-	creat_img (obj);
-	while (obj->game_map[row])
-	{
-		clm = 0;
-		while (obj->game_map[row][clm])
-		{
-			if (obj->game_map[row][clm] == '1')
-				make_square(row, clm, obj);
-			else if (obj->game_map[row][clm] == '+')
-				make_square (row, clm, obj);
-			clm++;
-		}
-		row++;
-	}
-	obj->colur = 0x00FF1A;
-	casting(obj);
-	draw_line (obj);
-	// select_texture (obj, obj->id);
-	mlx_put_image_to_window (obj->start, obj->window,
-		obj->my_image->mlx_img, 0, 0);
-	return (0);
-}
+// 	row = 0;
+// 	creat_img (obj);
+// 	while (obj->game_map[row])
+// 	{
+// 		clm = 0;
+// 		while (obj->game_map[row][clm])
+// 		{
+// 			if (obj->game_map[row][clm] == '1')
+// 				make_square(row, clm, obj);
+// 			else if (obj->game_map[row][clm] == '+')
+// 				make_square (row, clm, obj);
+// 			clm++;
+// 		}
+// 		row++;
+// 	}
+// 	obj->colur = 0x00FF1A;
+// 	casting(obj);
+// 	draw_line (obj);
+// 	// select_texture (obj, obj->id);
+// 	mlx_put_image_to_window (obj->start, obj->window,
+// 		obj->my_image->mlx_img, 0, 0);
+// 	return (0);
+// }
