@@ -61,7 +61,7 @@ int	check_is_player(t_play *obj, char c)
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		if (c == 'N')
-			obj->rot_ang = 3 * M_PI / 2;
+			obj->rot_ang = (3 * M_PI) / 2;
 		if (c == 'S')
 			obj->rot_ang = M_PI / 2;
 		if (c == 'E')

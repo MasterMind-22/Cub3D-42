@@ -25,8 +25,8 @@ void	get_curnt_posi(t_play *parzival, t_cub3d *yous)
 		{
 			if (check_is_player(parzival, yous->map[row][clm]) == 1)
 			{
-				parzival->x_play = (double) clm * GRID_SIZE;
-				parzival->y_play = (double) row * GRID_SIZE;
+				parzival->x_play = ((double) clm * GRID_SIZE);
+				parzival->y_play = ((double) row * GRID_SIZE);
 				return ;
 			}
 			clm++;

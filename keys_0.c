@@ -111,6 +111,13 @@ int	is_wall(t_ray *obj, double x, double y)
 // 	}
 // }
 
+void	norm_rot_angle(double *rot)
+{
+	*rot = fmod (*rot, 2 * M_PI);
+	if (*rot < 0)
+		*rot = (2 * M_PI) + *rot;
+}
+
 void	make_valus(t_play *blanka, t_ray *obj)
 {
 	double	movestep;
@@ -124,9 +131,62 @@ void	make_valus(t_play *blanka, t_ray *obj)
 	blanka->new_y = blanka->y_play;
 	blanka->x_play += cos(blanka->rot_ang) * movestep;
 	blanka->y_play += sin(blanka->rot_ang) * movestep;
-	if ((is_wall (obj, blanka->x_play, blanka->y_play) == -1))
+	// printf ("b = %f\n", blanka->rot_ang);
+	norm_rot_angle (&blanka->rot_ang);
+	// printf ("a = %d\n", is_ray_down (blanka->rot_ang));
+	// if (is_ray_down (blanka->rot_ang) == 1)
+	// {
+	// 	if ((is_wall (obj, blanka->x_play, blanka->y_play - 5) == -1))
+	// 	{
+	// 		printf ("0\n");
+	// 		blanka->x_play = blanka->new_x;
+	// 		blanka->y_play = blanka->new_y;
+	// 	}
+	// }
+	// if (is_ray_up (blanka->rot_ang) == 0)
+	// {
+	// 	if ((is_wall (obj, blanka->x_play, blanka->y_play - 5) == -1))
+	// 	{
+	// 		printf ("0\n");
+	// 		blanka->x_play = blanka->new_x;
+	// 		blanka->y_play = blanka->new_y;
+	// 	}
+	// }
+	int i = 0;
+	int j = 0;
+	if (is_ray_down (blanka->rot_ang) == 1 && blanka->walk_d == 1)
 	{
-		blanka->x_play = blanka->new_x;
-		blanka->y_play = blanka->new_y;
+		printf ("up and forward\n");
+		i = 4;
+		j = 0;
 	}
+	else if (is_ray_down (blanka->rot_ang) == 1 &&  blanka->walk_d == -1)
+	{
+		printf ("down and back\n");
+		i = -4;
+		j = 0;
+	}
+	else if (is_ray_down (blanka->rot_ang) == 0 && blanka->walk_d == 1)
+	{
+		printf ("down and forward\n");
+		i = -4;
+		j = 0;
+	}
+	else if (is_ray_down (blanka->rot_ang) == 0 &&  blanka->walk_d == -1)
+	{
+		printf ("up and forward\n");
+		i = 4;
+		j = 0;
+	}
+	// #############################################################################################################################################
+	// else if ()
+		if ((is_wall (obj, blanka->x_play - j, blanka->y_play - i ) == -1))
+		{
+			// if (is_ray_down (blanka->rot_ang) == 1)
+			// 	blanka->y_play -= 5;
+			// printf ("1\n");
+			blanka->x_play = blanka->new_x;
+			blanka->y_play = blanka->new_y;
+		}
+	// }
 }

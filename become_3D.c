@@ -92,10 +92,10 @@ int select_texture(t_ray *obj, int id)
 	obj->dataray[id].is_down = is_ray_down(obj->dataray[id].ray_ang);
 	obj->dataray[id].is_left = is_ray_left(obj->dataray[id].ray_ang);
 	obj->dataray[id].is_right = is_ray_right(obj->dataray[id].ray_ang);
-	printf ("kmi\n");
+	// printf ("kmi\n");
 	if (obj->dataray[id].is_up == 0 && obj->dataray[id].horz == 1)
 	{
-		puts("north");
+		// puts("north");
 		obj->right_texture->data_addr = obj->north_texture->data_addr;
 		obj->right_texture->lenofline = obj->north_texture->lenofline;
 		obj->right_texture->intperpixl = obj->north_texture->intperpixl;
@@ -104,7 +104,7 @@ int select_texture(t_ray *obj, int id)
 	}
 	else if (!obj->dataray[id].is_down && obj->dataray[id].horz == 1)
 	{
-		puts("south");
+		// puts("south");
 			obj->right_texture->data_addr = obj->south_texture->data_addr;
 			obj->right_texture->lenofline = obj->south_texture->lenofline;
 			obj->right_texture->intperpixl = obj->south_texture->intperpixl;
@@ -114,7 +114,7 @@ int select_texture(t_ray *obj, int id)
 	}
 	else if (!obj->dataray[id].is_right && obj->dataray[id].virt == 1)
 	{
-		puts("west");
+		// puts("west");
 		obj->right_texture->data_addr = obj->west_texture->data_addr;
 		obj->right_texture->lenofline = obj->west_texture->lenofline;
 		obj->right_texture->intperpixl = obj->west_texture->intperpixl;
@@ -123,7 +123,7 @@ int select_texture(t_ray *obj, int id)
 	}
 	else if (obj->dataray[id].is_left == 0 && obj->dataray[id].virt == 1)
 	{
-		puts("east");
+		// puts("east");
 			obj->right_texture->data_addr = obj->east_texture->data_addr;
 			obj->right_texture->lenofline = obj->east_texture->lenofline;
 			obj->right_texture->intperpixl = obj->east_texture->intperpixl;
