@@ -40,6 +40,7 @@ typedef struct cub3d_t
     int     floor_color;
     size_t  map_length;
     int     count;
+    int     F_C_flag;
 } t_cub3d;
 
 

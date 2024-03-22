@@ -21,13 +21,6 @@ void	determine_ange(t_ray *jackboys, int id)
 			+ jackboys->dataray[id].ray_ang;
 }
 
-// void	norm_rot_angle(double *rot)
-// {
-// 	*rot = fmod (*rot, 2 * M_PI);
-// 	if (*rot < 0)
-// 		*rot = (2 * M_PI) + *rot;
-// }
-
 void	chose_vert_or_horz(t_ray *obj, int id)
 {
 	calcul_hor_and_ver_dessetens (obj, id);
@@ -151,7 +144,7 @@ int	ft_again(t_ray *obj)
 // 	obj->colur = 0x00FF1A;
 // 	casting(obj);
 // 	draw_line (obj);
-// 	// select_texture (obj, obj->id);
+// 	select_texture (obj, obj->id);
 // 	mlx_put_image_to_window (obj->start, obj->window,
 // 		obj->my_image->mlx_img, 0, 0);
 // 	return (0);

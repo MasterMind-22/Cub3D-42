@@ -167,7 +167,7 @@ unsigned int color;
 
 			int distanceFromTop = y + (obj->dataray[id].wall_length / 2) - (WINDOW_HEIGHT / 2);
 			int textureOffsetY = distanceFromTop * ((double)obj->right_texture->x / obj->dataray[id].wall_length);
-				color  = get_pixel_color(obj->right_texture, textureOffsetX, textureOffsetY);
+			color  = get_pixel_color(obj->right_texture, textureOffsetX, textureOffsetY);
 			put_pix_img (obj->my_image, id, y, color);
 	}
 		id++;
