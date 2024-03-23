@@ -6,7 +6,7 @@
 /*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 06:01:33 by yonadry           #+#    #+#             */
-/*   Updated: 2024/03/23 06:02:09 by yonadry          ###   ########.fr       */
+/*   Updated: 2024/03/23 08:41:48 by yonadry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	get_map_layout(t_cub3d *cub3d, char **read)
 		str = ft_strtrim(read[i], "\n ");
 		split = ft_split(str, ' ');
 		free(str);
-		if (split[0] && split[1])
+		if (split[0] && split[1] && !split[2])
 			check_textures(cub3d, split);
 		if ((count_char(read[i], '1') || count_char(read[i], '0'))
 			&& (count_char(split[0], '1') || count_char(split[0], '0')))
