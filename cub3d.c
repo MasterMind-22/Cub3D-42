@@ -6,7 +6,7 @@
 /*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:26:57 by yonadry           #+#    #+#             */
-/*   Updated: 2024/03/23 08:40:25 by yonadry          ###   ########.fr       */
+/*   Updated: 2024/03/23 08:45:47 by yonadry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	become_3d(t_ray *obj)
 {
 	int				id;
 	double			corect_lenght;
-	unsigned int	color;
 	int				walltoppixel;
 	int				wallbottompixel;
 
