@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:36:19 by momihamm          #+#    #+#             */
-/*   Updated: 2024/03/20 03:03:46 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/23 08:26:30 by yonadry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,32 +103,33 @@ typedef struct dda
 
 typedef struct ray
 {
-	void			*start;
-	void			*window;
-	char			**game_map;
-	int				colur;
-	int				the_long_line;
-	int				the_rows;
-	// int				rad;
-	int				ceiling;
-	int				f_flor;
-	int				id;
-	double			window_width;
-	double			window_height;
-	double			dest_por_wall;
-	t_img    		*north_texture;
-    t_img    		*south_texture;
-    t_img    		*west_texture;
-    t_img    		*east_texture;
-	t_img			*right_texture;
-	t_cub3d			*cub3d;
-	t_img			*my_image;
-	t_play			*plays;
-	t_dda			*algo;
-	t_cast			dataray[RAYS_WINDOW_WIDTH];
+	void	*start;
+	void	*window;
+	char	**game_map;
+	int		colur;
+	int		the_long_line;
+	int		the_rows;
+	int		ceiling;
+	int		f_flor;
+	int		id;
+	double	window_width;
+	double	window_height;
+	double	dest_por_wall;
+	t_img	*north_texture;
+	t_img	*south_texture;
+	t_img	*west_texture;
+	t_img	*east_texture;
+	t_img	*right_texture;
+	t_cub3d	*cub3d;
+	t_img	*my_image;
+	t_play	*plays;
+	t_dda	*algo;
+	t_cast	dataray[RAYS_WINDOW_WIDTH];
 }	t_ray;
 
 /******************************** RAYCASTING **********************************/
+void	free_all(t_ray *strahl);
+void	open_textures(t_ray *strahl);
 void	the_longest_line(t_cub3d *usef, t_ray *my_struct);
 void	init_player(t_ray *ready, t_cub3d *usef);
 void	put_pix_img(t_img *img, int x, int y, int colur);
@@ -171,6 +172,10 @@ int		hor_hit(t_ray *bayren, int id);
 int		check_is_player(t_play *obj, char c);
 double	deg2rad(double degrees);
 double	rad2deg(double radians);
+void	become_3d(t_ray *obj);
+void	draw_wall(t_ray *obj, int id, int walltoppixel, int wallbottompixel);
+int		select_texture(t_ray *obj, int id);
+int		select_texture(t_ray *obj, int id);
 /******************************************************************************/
 
 #endif

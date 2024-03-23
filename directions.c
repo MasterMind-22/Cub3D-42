@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 01:50:22 by momihamm          #+#    #+#             */
-/*   Updated: 2024/03/20 03:03:55 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/23 06:10:24 by yonadry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	is_ray_down(double ray_angle)
 	if (!is_ray_up(ray_angle))
 		return (1);
 	return (0);
-
 }
 
 int	is_ray_right(double ray_angle)

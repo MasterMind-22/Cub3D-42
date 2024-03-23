@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+         #
+#    By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 05:01:03 by momihamm          #+#    #+#              #
-#    Updated: 2024/03/16 05:01:18 by momihamm         ###   ########.fr        #
+#    Updated: 2024/03/23 07:13:13 by yonadry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,10 @@ SRCS =	parsing.c \
 		press_and_reless.c \
 		special_moves.c \
 		become_3D.c	\
+		open_textures.c \
+		parsing_1.c \
+		parsing_2.c \
+		parsing_3.c \
 
 OBJS = ${SRCS:.c=.o}
 CC = cc

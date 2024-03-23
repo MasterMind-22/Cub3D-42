@@ -3,65 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yonadry <yonadry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:26:57 by yonadry           #+#    #+#             */
-/*   Updated: 2024/03/16 08:29:07 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/03/23 08:40:25 by yonadry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-void	mr(void)
+void	become_3d(t_ray *obj)
 {
-	system ("leaks cub3D");
-}
+	int				id;
+	double			corect_lenght;
+	unsigned int	color;
+	int				walltoppixel;
+	int				wallbottompixel;
 
-void	free_all(t_cub3d *cub3d)
-{
-	free(cub3d->east_texture);
-	free(cub3d->north_texture);
-	free(cub3d->west_texture);
-	free(cub3d->south_texture);
-	free_strs(cub3d->map, 0);
-	free(cub3d);
-}
-void open_textures(t_ray *strahl)
-{
-	strahl->north_texture->mlx_img = mlx_xpm_file_to_image(strahl->start,
-			strahl->cub3d->north_texture, &strahl->north_texture->x, &strahl->north_texture->y);
-	strahl->east_texture->mlx_img = mlx_xpm_file_to_image(strahl->start,
-			strahl->cub3d->east_texture, &strahl->east_texture->x, &strahl->east_texture->y);
-	strahl->south_texture->mlx_img = mlx_xpm_file_to_image(strahl->start,
-			strahl->cub3d->south_texture, &strahl->south_texture->x, &strahl->south_texture->y);
-	strahl->west_texture->mlx_img = mlx_xpm_file_to_image(strahl->start,
-			strahl->cub3d->west_texture, &strahl->west_texture->x, &strahl->west_texture->y);
-	if (!strahl->north_texture->mlx_img || !strahl->east_texture->mlx_img
-		|| !strahl->south_texture->mlx_img || !strahl->west_texture->mlx_img)
+	id = 0;
+	while (id < RAYS_WINDOW_WIDTH)
 	{
-		printf("Error\n");
-		exit(0);
-	}
-	strahl->north_texture->data_addr = mlx_get_data_addr(strahl->north_texture->mlx_img,
-			&strahl->north_texture->intperpixl, &strahl->north_texture->lenofline,
-			&strahl->north_texture->end);
-	strahl->east_texture->data_addr = mlx_get_data_addr(strahl->east_texture->mlx_img,
-			&strahl->east_texture->intperpixl, &strahl->east_texture->lenofline,
-			&strahl->east_texture->end);
-	strahl->south_texture->data_addr = mlx_get_data_addr(strahl->south_texture->mlx_img,
-			&strahl->south_texture->intperpixl, &strahl->south_texture->lenofline,
-			&strahl->south_texture->end);
-	strahl->west_texture->data_addr = mlx_get_data_addr(strahl->west_texture->mlx_img,
-			&strahl->west_texture->intperpixl, &strahl->west_texture->lenofline,
-			&strahl->west_texture->end);
-	if (!strahl->north_texture->data_addr || !strahl->east_texture->data_addr
-		|| !strahl->south_texture->data_addr || !strahl->west_texture->data_addr)
-	{
-		printf("Error\n");
-		exit(0);
+		corect_lenght = obj->dataray[id].massafa
+			* cos (obj->dataray[id].ray_ang - obj->plays->rot_ang);
+		obj->dataray[id].wall_length = (obj->plays->tile / corect_lenght)
+			* obj->dest_por_wall;
+		walltoppixel = (WINDOW_HEIGHT / 2) - (obj->dataray[id].wall_length / 2);
+		if (walltoppixel < 0)
+			walltoppixel = 0;
+		wallbottompixel = (WINDOW_HEIGHT / 2)
+			+ (obj->dataray[id].wall_length / 2);
+		if (wallbottompixel > WINDOW_HEIGHT)
+			wallbottompixel = WINDOW_HEIGHT;
+		select_texture(obj, id);
+		draw_wall(obj, id, walltoppixel, wallbottompixel);
+		id++;
 	}
 }
 
+void	free_all(t_ray *strahl)
+{
+	free(strahl->cub3d->east_texture);
+	free(strahl->cub3d->north_texture);
+	free(strahl->cub3d->west_texture);
+	free(strahl->cub3d->south_texture);
+	free_strs(strahl->cub3d->map, 0);
+	free(strahl->plays);
+	free(strahl->my_image);
+	free(strahl->algo);
+	free(strahl->north_texture);
+	free(strahl->west_texture);
+	free(strahl->south_texture);
+	free(strahl->east_texture);
+	free(strahl->right_texture);
+	free(strahl->cub3d);
+}
 
 void	mlx_art(t_cub3d *usef, t_ray *strahl, t_play *parzival)
 {
@@ -84,6 +79,18 @@ void	mlx_art(t_cub3d *usef, t_ray *strahl, t_play *parzival)
 	mlx_loop (strahl->start);
 }
 
+void	call_main(t_ray *strahl, char **av)
+{
+	if (!strahl || !strahl->plays
+		|| !strahl->my_image || !strahl->algo)
+		p_error("Malloc failed\n");
+	strahl->cub3d->file_name = check_extension(av[1]);
+	read_map_elements(strahl->cub3d);
+	strahl->game_map = strahl->cub3d->map;
+	mlx_art (strahl->cub3d, strahl, strahl->plays);
+	free_all(strahl);
+}
+
 int	main(int ac, char **av)
 {
 	t_cub3d	*cub3d;
@@ -95,24 +102,14 @@ int	main(int ac, char **av)
 		strahl = malloc (sizeof(t_ray));
 		strahl->plays = malloc (sizeof(t_play));
 		strahl->my_image = malloc (sizeof (t_img));
+		strahl->cub3d = cub3d;
 		strahl->algo = malloc (sizeof (t_dda));
-		strahl->cub3d  = cub3d;
 		strahl->north_texture = malloc (sizeof (t_img));
 		strahl->west_texture = malloc (sizeof (t_img));
 		strahl->south_texture = malloc (sizeof (t_img));
 		strahl->east_texture = malloc (sizeof (t_img));
 		strahl->right_texture = malloc (sizeof (t_img));
-		if (!cub3d || !strahl || !strahl->plays
-			|| !strahl->my_image || !strahl->algo)
-		{
-			printf ("bad pass!\n");
-			return (0);
-		}
-		cub3d->file_name = check_extension(av[1]);
-		read_map_elements(cub3d);
-		strahl->game_map = cub3d->map;
-		mlx_art (cub3d, strahl, strahl->plays);
-		free_all(cub3d);
+		call_main(strahl, av);
 	}
 	else
 		ft_putstr("Error\nPlease input a valid argument");
